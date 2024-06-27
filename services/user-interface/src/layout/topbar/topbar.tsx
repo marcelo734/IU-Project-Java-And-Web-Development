@@ -10,9 +10,21 @@ const Navbar = styled.header`
 `
 
 const LogoWrapper = styled.div`
-    background-color: red;
+    background-color: #04274c;
     width: 120px;
-    height: 48px;
+    //height: 48px;
+    padding: 8px;
+`
+const Logo = styled.span`
+    font-family: "Playwrite ES Deco", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 22px;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const Navigation = styled.nav`
@@ -30,12 +42,14 @@ const Navigation = styled.nav`
 export default function TopBar() {
     return (
         <Navbar>
-            <LogoWrapper />
+            <LogoWrapper>
+                <Logo>Stocks</Logo>
+            </LogoWrapper>
 
             <Navigation>
                 <ul>
                     <li>
-                        <Link to="/">Stocks</Link>
+                        <Link to="/">Home</Link>
                     </li>
                 </ul>
             </Navigation>
