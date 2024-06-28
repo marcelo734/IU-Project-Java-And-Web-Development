@@ -1,5 +1,20 @@
-export type TimeSeries = {
+export enum TimeSeriesFrequence {
+    INTRADAY = "INTRADAY",
+    DAILY = "DAILY",
+    WEEKLY = "WEEKLY",
+    MONTHLY = "MONTHLY",
+}
+export type TimeSeriesMetadata = {
+    frequency: TimeSeriesFrequence
+}
+
+export type TimeSeriesData = {
     [date: string]: BasicFinancialInfo
+}
+
+export type TimeSeries = {
+    metaData: TimeSeriesMetadata;
+    series: TimeSeriesData
 }
 
 export type BasicFinancialInfo = {
@@ -7,6 +22,7 @@ export type BasicFinancialInfo = {
     high: string;
     low: string;
     volume: string;
+    close?: string;
 }
 
 export type GlobalQuote = BasicFinancialInfo & {
@@ -19,7 +35,7 @@ export type GlobalQuote = BasicFinancialInfo & {
 
 export type Stock = {
     symbol: string;
-    timeSeries?: TimeSeries[];
+    timeSeries?: TimeSeries;
     globalQuote?: GlobalQuote;
     addedAt?: string
 }
