@@ -7,6 +7,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * NodeJS: 18.18.0
 * NPM: 9.8.1
 
+## Project Dependencies
+* [React](https://react.dev/reference/react)
+* [React Router](https://reactrouter.com/en/main)
+* [React Bootstrap](https://react-bootstrap.netlify.app/docs/getting-started/introduction)
+* [React Data Table Component](https://react-data-table-component.netlify.app/?path=/docs/getting-started-intro--docs)
+* [Styled Components](https://styled-components.com/docs)
+* [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+
 ## Available Scripts
 
 In the project directory, you can run:
