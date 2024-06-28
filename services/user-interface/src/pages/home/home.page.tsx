@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import Table from 'react-bootstrap/Table';
+import {useStore} from "../../stores/stock.store";
+import {useEffect} from "react";
 
 const SearchStocksInput = styled.div`
     display: flex;
@@ -14,6 +16,12 @@ const TableRowActionItemsGroup = styled.td`
 `
 
 export default function HomePage() {
+    const stocks = useStore((state) => state.myStocks)
+
+    useEffect(() => {
+        console.log("Favorite Stocks list", stocks)
+    }, [stocks])
+
     return <>
         <SearchStocksInput>
             <label>Search stocks</label>
