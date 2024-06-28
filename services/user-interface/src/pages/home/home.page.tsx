@@ -1,9 +1,9 @@
-import {useEffect} from "react";
 import styled from "styled-components";
 import DataTable from 'react-data-table-component';
 
 import {useStore} from "../../stores/stock.store";
 import {Stock} from "../../stores/Stock";
+import {useNavigate} from "react-router-dom";
 
 const SearchStocksInput = styled.div`
     display: flex;
@@ -12,35 +12,34 @@ const SearchStocksInput = styled.div`
     margin-bottom: 16px;
 `
 
-const TableRowActions = styled.div`
-    display: flex;
-    gap: 16px;
-`
+const columns = [
+    {
+        name: "Symbol",
+        selector: (row: Stock) => row.symbol
+    },
+    {
+        name: "Added At",
+        selector: (row: Stock) => row.addedAt || "-"
+    }
+]
+
+const tableCustomStyle = {
+    rows: {
+        style: {
+            ":hover": {
+                cursor: "pointer"
+            }
+        }
+    }
+}
 
 export default function HomePage() {
     const stocks: Stock[] = useStore((state) => state.myStocks)
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        console.log("Favorite Stocks list", stocks)
-    }, [stocks])
-
-    const columns = [
-        {
-            name: "Symbol",
-            selector: (row: Stock) => row.symbol
-        },
-        {
-            name: "Added At",
-            selector: (row: Stock) => row.addedAt || "-"
-        },
-        {
-            cell: () => <TableRowActions>
-                <button>View</button>
-                <button>Remove</button>
-            </TableRowActions>,
-            ignoreRowClick: true,
-        }
-    ]
+    const onViewStock = (stock: Stock) => {
+        navigate(`/stock/${stock.symbol}`)
+    }
 
     return <>
         <SearchStocksInput>
@@ -51,8 +50,11 @@ export default function HomePage() {
             </div>
         </SearchStocksInput>
 
-        <div>
-            <DataTable columns={columns} data={stocks} />
-        </div>
+        <DataTable
+            columns={columns}
+            data={stocks}
+            onRowClicked={onViewStock}
+            customStyles={tableCustomStyle}
+            selectableRows />
     </>
 }
