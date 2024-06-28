@@ -1,5 +1,6 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import styled from "styled-components";
+import {useCallback} from "react";
 
 const Navbar = styled.header`
     padding: 8px 16px;
@@ -12,8 +13,11 @@ const Navbar = styled.header`
 const LogoWrapper = styled.div`
     background-color: #04274c;
     width: 120px;
-    //height: 48px;
     padding: 8px;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
 const Logo = styled.span`
     font-family: "Playwrite ES Deco", cursive;
@@ -40,9 +44,15 @@ const Navigation = styled.nav`
 `
 
 export default function TopBar() {
+    const navigate = useNavigate()
+
+    const onLogoClick = useCallback(() => {
+        navigate("/")
+    }, [])
+
     return (
         <Navbar>
-            <LogoWrapper>
+            <LogoWrapper onClick={onLogoClick}>
                 <Logo>Stocks</Logo>
             </LogoWrapper>
 
