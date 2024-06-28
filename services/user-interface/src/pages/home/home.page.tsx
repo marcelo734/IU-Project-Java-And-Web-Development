@@ -1,7 +1,9 @@
-import styled from "styled-components";
-import Table from 'react-bootstrap/Table';
-import {useStore} from "../../stores/stock.store";
 import {useEffect} from "react";
+import styled from "styled-components";
+import DataTable from 'react-data-table-component';
+
+import {useStore} from "../../stores/stock.store";
+import {Stock} from "../../stores/Stock";
 
 const SearchStocksInput = styled.div`
     display: flex;
@@ -10,17 +12,35 @@ const SearchStocksInput = styled.div`
     margin-bottom: 16px;
 `
 
-const TableRowActionItemsGroup = styled.td`
+const TableRowActions = styled.div`
     display: flex;
     gap: 16px;
 `
 
 export default function HomePage() {
-    const stocks = useStore((state) => state.myStocks)
+    const stocks: Stock[] = useStore((state) => state.myStocks)
 
     useEffect(() => {
         console.log("Favorite Stocks list", stocks)
     }, [stocks])
+
+    const columns = [
+        {
+            name: "Symbol",
+            selector: (row: Stock) => row.symbol
+        },
+        {
+            name: "Added At",
+            selector: (row: Stock) => row.addedAt || "-"
+        },
+        {
+            cell: () => <TableRowActions>
+                <button>View</button>
+                <button>Remove</button>
+            </TableRowActions>,
+            ignoreRowClick: true,
+        }
+    ]
 
     return <>
         <SearchStocksInput>
@@ -32,26 +52,7 @@ export default function HomePage() {
         </SearchStocksInput>
 
         <div>
-            <Table striped bordered>
-                <thead>
-                    <tr>
-                        <th>Symbol</th>
-                        <th>Added at</th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                <tr>
-                    <td>IBM</td>
-                    <td>{new Date().toISOString()}</td>
-                    <TableRowActionItemsGroup>
-                        <button>View</button>
-                        <button>Remove</button>
-                    </TableRowActionItemsGroup>
-                </tr>
-                </tbody>
-            </Table>
+            <DataTable columns={columns} data={stocks} />
         </div>
     </>
 }
