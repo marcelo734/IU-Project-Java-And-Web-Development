@@ -16,8 +16,8 @@ type Action = {
 
 export const useStore = create<State & Action>((set) => ({
     myStocks: stocksMockData,
-    setSelectedStock(stock: Stock) {
-        set((state) => ({selectedStock: stock}) )
+    setSelectedStock(selectedStock: Stock) {
+        set((state) => ({ selectedStock }))
     },
     fetchStock(symbol: string) {
         // TODO: go to backend and fetch the data

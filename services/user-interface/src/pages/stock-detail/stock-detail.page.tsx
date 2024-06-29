@@ -1,15 +1,24 @@
-import {useEffect} from "react";
+import { Bar } from "react-chartjs-2"
+import {Chart as ChartJS, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Title} from "chart.js";
 
-import {useStore} from "../../stores/stock.store";
+
+import {useStore as stockStore} from "../../stores/stock.store";
+import {useStore as chartStore} from "../../stores/chart.store";
+
 import { formatInteger, formatCurrency } from "../../utils/int-formaters.util"
 
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+);
 
 export default function StockDetailPage() {
-    const selectedStock = useStore((state) => state.selectedStock)
-
-    useEffect(() => {
-        console.log(selectedStock);
-    }, [selectedStock])
+    const selectedStock = stockStore((state) => state.selectedStock)
+    const chartDataSet = chartStore((state) => state.selectedStockChartData)
 
     return <>
         <h1>{selectedStock?.symbol}</h1>
@@ -54,5 +63,9 @@ export default function StockDetailPage() {
                 </li>
             </>}
         </ul>
+
+        {chartDataSet && <Bar
+            datasetIdKey='id'
+            data={chartDataSet} />}
     </>
 }
