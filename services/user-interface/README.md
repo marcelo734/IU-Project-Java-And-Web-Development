@@ -15,6 +15,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [Styled Components](https://styled-components.com/docs)
 * [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
 * [Moment.js](https://momentjs.com/docs/)
+* [Chart.js](https://www.chartjs.org/docs/latest/)
+* [react-chartjs-2](https://react-chartjs-2.js.org/)
 
 ## Available Scripts
 
