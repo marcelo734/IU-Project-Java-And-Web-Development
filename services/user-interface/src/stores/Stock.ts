@@ -1,3 +1,5 @@
+import { Moment } from "moment"
+
 export enum TimeSeriesFrequence {
     INTRADAY = "INTRADAY",
     DAILY = "DAILY",
@@ -18,18 +20,18 @@ export type TimeSeries = {
 }
 
 export type BasicFinancialInfo = {
-    open: string;
-    high: string;
-    low: string;
-    volume: string;
-    close?: string;
+    open: number;
+    high: number;
+    low: number;
+    volume: number;
+    close?: number;
 }
 
 export type GlobalQuote = BasicFinancialInfo & {
-    price: string;
-    latestTradingDay: string;
-    previousClose: string;
-    change: string;
+    price: number;
+    latestTradingDay: Moment;
+    previousClose: number;
+    change: number;
     changePercent: string;
 }
 
@@ -37,5 +39,5 @@ export type Stock = {
     symbol: string;
     timeSeries?: TimeSeries;
     globalQuote?: GlobalQuote;
-    addedAt?: string
+    addedAt?: string;
 }
