@@ -35,9 +35,12 @@ const tableCustomStyle = {
 
 export default function HomePage() {
     const stocks: Stock[] = useStore((state) => state.myStocks)
+
     const navigate = useNavigate()
+    const setSelectedStock = useStore(state => state.setSelectedStock)
 
     const onViewStock = (stock: Stock) => {
+        setSelectedStock(stock)
         navigate(`/stock/${stock.symbol}`)
     }
 

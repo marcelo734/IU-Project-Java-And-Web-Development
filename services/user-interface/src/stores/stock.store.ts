@@ -4,10 +4,22 @@ import {Stock} from "./Stock";
 
 import {stocksMockData} from "./__MOCK__/stock.mock";
 
-type StockStore = {
+type State = {
     myStocks: Stock[]
+    selectedStock?: Stock
 }
 
-export const useStore = create<StockStore>((set) => ({
-    myStocks: stocksMockData
+type Action = {
+    fetchStock(symbol: string): void
+    setSelectedStock(stock: Stock): void
+}
+
+export const useStore = create<State & Action>((set) => ({
+    myStocks: stocksMockData,
+    setSelectedStock(stock: Stock) {
+        set((state) => ({selectedStock: stock}) )
+    },
+    fetchStock(symbol: string) {
+        // TODO: go to backend and fetch the data
+    }
 }))
