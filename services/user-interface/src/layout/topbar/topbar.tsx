@@ -48,7 +48,7 @@ export default function TopBar() {
 
     const onLogoClick = useCallback(() => {
         navigate("/")
-    }, [])
+    }, [navigate])
 
     return (
         <Navbar>
