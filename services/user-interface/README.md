@@ -14,6 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * [React Data Table Component](https://react-data-table-component.netlify.app/?path=/docs/getting-started-intro--docs)
 * [Styled Components](https://styled-components.com/docs)
 * [Zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+* [Moment.js](https://momentjs.com/docs/)
 
 ## Available Scripts
 
