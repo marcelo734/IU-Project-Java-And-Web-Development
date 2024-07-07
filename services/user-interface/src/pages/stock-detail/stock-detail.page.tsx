@@ -1,71 +1,101 @@
-import { Bar } from "react-chartjs-2"
-import {Chart as ChartJS, Tooltip, Legend, BarElement, CategoryScale, LinearScale, Title} from "chart.js";
-
+import {Line} from "react-chartjs-2"
+import styled from "styled-components";
+import {
+    Chart as ChartJS,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    Title,
+    PointElement,
+    LineElement
+} from "chart.js";
 
 import {useStore as stockStore} from "../../stores/stock.store";
 import {useStore as chartStore} from "../../stores/chart.store";
 
-import { formatInteger, formatCurrency } from "../../utils/int-formaters.util"
+import { formatInteger, formatCurrency } from "../../utils/int-formaters.util";
+import {Card} from "../../components/Card";
 
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    BarElement,
     Title,
     Tooltip,
     Legend,
+    PointElement,
+    LineElement,
 );
+
+
+const UnstyledList = styled.ul`
+    list-style: none;
+    padding: 0;
+`;
 
 export default function StockDetailPage() {
     const selectedStock = stockStore((state) => state.selectedStock)
-    const chartDataSet = chartStore((state) => state.selectedStockChartData)
+    const chartDataSet = chartStore((state) => state.selectedStockTimeSeriesChartDataSet)
 
     return <>
         <h1>{selectedStock?.symbol}</h1>
 
-        <ul>
-            {selectedStock?.globalQuote && <>
+        <div className="row">
+            <div className="col-6">
+                <Card>
+                    <h2>{selectedStock?.timeSeries?.metaData.frequency} TimeSeries</h2>
 
-                <li>
-                    Volume: {formatInteger(selectedStock.globalQuote.volume)}
-                </li>
+                    {chartDataSet && <Line
+                        datasetIdKey='id'
+                        data={chartDataSet}/>}
+                </Card>
+            </div>
 
-                <li>
-                    Latest Trading Day: {
-                        selectedStock.globalQuote.latestTradingDay.format("L")
-                    }
-                </li>
+            <div className="col-6">
+                <Card>
+                    <h2>Stock Trade Overview</h2>
 
-                <li>
-                    Price: {formatCurrency(selectedStock.globalQuote.price)}
-                </li>
+                    <UnstyledList>
+                        {selectedStock?.globalQuote && <>
+                            <li>
+                                <b>Latest Trading Day</b>: {
+                                selectedStock.globalQuote.latestTradingDay.format("L")
+                            }
+                            </li>
 
-                <li>
-                    High: {formatCurrency(selectedStock.globalQuote.high)}
-                </li>
+                            <li>
+                                <b>Volume</b>: {formatInteger(selectedStock.globalQuote.volume)}
+                            </li>
 
-                <li>
-                    Open: {formatCurrency(selectedStock.globalQuote.open)}
-                </li>
+                            <li>
+                                <b>Price</b>: {formatCurrency(selectedStock.globalQuote.price)}
+                            </li>
 
-                <li>
-                    Low: {formatCurrency(selectedStock.globalQuote.low)}
-                </li>
+                            <li>
+                                <b>High</b>: {formatCurrency(selectedStock.globalQuote.high)}
+                            </li>
 
-                <li>
-                    Change: {formatCurrency(selectedStock.globalQuote.change)} ({
-                        selectedStock.globalQuote.changePercent
-                    })
-                </li>
+                            <li>
+                                <b>Open</b>: {formatCurrency(selectedStock.globalQuote.open)}
+                            </li>
 
-                <li>
-                    Previous Close: {formatCurrency(selectedStock.globalQuote.previousClose)}
-                </li>
-            </>}
-        </ul>
+                            <li>
+                                <b>Low</b>: {formatCurrency(selectedStock.globalQuote.low)}
+                            </li>
 
-        {chartDataSet && <Bar
-            datasetIdKey='id'
-            data={chartDataSet} />}
+                            <li>
+                                <b>Change</b>: {formatCurrency(selectedStock.globalQuote.change)} ({
+                                selectedStock.globalQuote.changePercent
+                            })
+                            </li>
+
+                            <li>
+                                <b>Previous Close</b>: {formatCurrency(selectedStock.globalQuote.previousClose)}
+                            </li>
+                        </>}
+                    </UnstyledList>
+                </Card>
+            </div>
+        </div>
     </>
 }

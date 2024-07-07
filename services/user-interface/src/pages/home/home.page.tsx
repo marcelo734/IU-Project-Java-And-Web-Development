@@ -39,11 +39,11 @@ export default function HomePage() {
 
     const navigate = useNavigate()
     const setSelectedStock = useStockStore(state => state.setSelectedStock)
-    const calculateStockChartDataset = useChartStore((state) => state.calculateLineChartDataSet)
+    const calculateStockTimeSeriesChartDataSet = useChartStore((state) => state.calculateStockTimeSeriesChartDataSet)
 
     const onViewStock = (stock: Stock) => {
         setSelectedStock(stock)
-        if (stock.timeSeries) calculateStockChartDataset(stock.timeSeries.series)
+        if (stock.timeSeries) calculateStockTimeSeriesChartDataSet(stock.timeSeries.series)
         navigate(`/stock/${stock.symbol}`)
     }
 
