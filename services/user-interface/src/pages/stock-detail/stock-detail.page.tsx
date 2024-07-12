@@ -1,4 +1,6 @@
 import {Line} from "react-chartjs-2"
+import {useEffect} from "react";
+import {useParams} from "react-router-dom";
 import styled from "styled-components";
 import {
     Chart as ChartJS,
@@ -34,8 +36,23 @@ const UnstyledList = styled.ul`
 `;
 
 export default function StockDetailPage() {
+    const symbol = useParams().symbol!
+
     const selectedStock = stockStore((state) => state.selectedStock)
     const chartDataSet = chartStore((state) => state.selectedStockTimeSeriesChartDataSet)
+
+    const setSelectedStock = stockStore((state) => state.setSelectedStock)
+    const calculateStockTimeSeriesChartDataSet = chartStore((state) => state.calculateStockTimeSeriesChartDataSet)
+
+    useEffect(() => {
+        setSelectedStock(symbol)
+    }, [symbol, setSelectedStock])
+
+    useEffect(() => {
+        if (selectedStock && selectedStock.timeSeries) {
+            calculateStockTimeSeriesChartDataSet(selectedStock.timeSeries.series)
+        }
+    }, [selectedStock, calculateStockTimeSeriesChartDataSet]);
 
     return <>
         <h1>{selectedStock?.symbol}</h1>

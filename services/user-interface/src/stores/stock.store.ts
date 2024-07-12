@@ -6,20 +6,33 @@ import {stocksMockData} from "./__MOCK__/stock.mock";
 
 type State = {
     myStocks: Stock[]
-    selectedStock?: Stock
+    selectedStock: Stock | null
 }
 
 type Action = {
-    fetchStock(symbol: string): void
-    setSelectedStock(stock: Stock): void
+    fetchStocks(): void
+    setSelectedStock(symbol: string): void
 }
 
 export const useStore = create<State & Action>((set) => ({
-    myStocks: stocksMockData,
-    setSelectedStock(selectedStock: Stock) {
-        set((state) => ({ selectedStock }))
+    myStocks: [],
+    selectedStock: null,
+    setSelectedStock(symbol: string) {
+        // TODO: replace with real call to backend
+        setTimeout(() => {
+            const stock = stocksMockData
+                .find(el => el.symbol.toLocaleLowerCase() === symbol.toLocaleLowerCase())!;
+
+            set((state) => ({
+                ...state,
+                selectedStock: stock
+            }))
+        }, 1500)
+
     },
-    fetchStock(symbol: string) {
-        // TODO: go to backend and fetch the data
+    fetchStocks() {
+        setTimeout(() => {
+            set((state) => ({ ...state, myStocks: stocksMockData }))
+        }, 1000)
     }
 }))

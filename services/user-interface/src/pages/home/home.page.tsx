@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import styled from "styled-components";
 import DataTable from 'react-data-table-component';
 import {useNavigate} from "react-router-dom";
 
 import {useStore as useStockStore} from "../../stores/stock.store";
-import {useStore as useChartStore} from "../../stores/chart.store";
 import {Stock} from "../../stores/Stock";
 
 const SearchStocksInput = styled.div`
@@ -35,17 +35,19 @@ const tableCustomStyle = {
 }
 
 export default function HomePage() {
+    const navigate = useNavigate()
+
     const stocks: Stock[] = useStockStore((state) => state.myStocks)
 
-    const navigate = useNavigate()
-    const setSelectedStock = useStockStore(state => state.setSelectedStock)
-    const calculateStockTimeSeriesChartDataSet = useChartStore((state) => state.calculateStockTimeSeriesChartDataSet)
+    const fetchStocks = useStockStore((state) => state.fetchStocks)
 
     const onViewStock = (stock: Stock) => {
-        setSelectedStock(stock)
-        if (stock.timeSeries) calculateStockTimeSeriesChartDataSet(stock.timeSeries.series)
         navigate(`/stock/${stock.symbol}`)
     }
+
+    useEffect(() => {
+        fetchStocks()
+    }, [fetchStocks]);
 
     return <>
         <SearchStocksInput>
