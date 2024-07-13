@@ -60,7 +60,7 @@ export default function StockDetailPage() {
     return <>
 
         <div className="row">
-            <div className="col-12">
+            <div className="col-md-12">
                 <Card>
                     <h1>{selectedStock?.overview.name} ({selectedStock?.symbol})</h1>
 
@@ -73,7 +73,7 @@ export default function StockDetailPage() {
         </div>
 
         <div className="row">
-            <div className="col-6">
+            <div className="col-md-6">
                 <Card>
                     <h2>{selectedStock?.timeSeries?.metaData.frequency} TimeSeries</h2>
 
@@ -83,7 +83,7 @@ export default function StockDetailPage() {
                 </Card>
             </div>
 
-            <div className="col-6">
+            <div className="col-md-6">
                 <Card>
                     <h2>Stock Trade Overview</h2>
 

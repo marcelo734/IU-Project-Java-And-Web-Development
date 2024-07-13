@@ -7,6 +7,7 @@ type CardProps = {
 
 const CardWrapper = styled.div`
     background-color: #FFF;
+    margin-bottom: 16px;
     padding: 16px;
 `
 

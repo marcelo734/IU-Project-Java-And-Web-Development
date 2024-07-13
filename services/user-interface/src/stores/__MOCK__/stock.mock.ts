@@ -33,6 +33,27 @@ export const stocksMockData: Stock[] = [
                     close: 166.2000,
                     volume: 98297181
                 },
+                "2024-03-30": {
+                    open: 165.6900,
+                    high: 175.4600,
+                    low: 162.6200,
+                    close: 169.6600,
+                    volume: 65653753
+                },
+                "2024-02-30": {
+                    open: 190.0000,
+                    high: 193.2800,
+                    low: 165.2605,
+                    close: 166.2000,
+                    volume: 98297181
+                },
+                "2024-01-30": {
+                    open: 165.6900,
+                    high: 175.4600,
+                    low: 162.6200,
+                    close: 169.6600,
+                    volume: 65653753
+                },
             }
         },
         globalQuote: {
