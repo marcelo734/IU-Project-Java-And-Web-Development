@@ -18,6 +18,7 @@ import {useStore as chartStore} from "../../stores/chart.store";
 
 import { formatInteger, formatCurrency } from "../../utils/int-formaters.util";
 import {Card} from "../../components/Card";
+import Loading from "../../components/Loading";
 
 ChartJS.register(
     CategoryScale,
@@ -53,6 +54,8 @@ export default function StockDetailPage() {
             calculateStockTimeSeriesChartDataSet(selectedStock.timeSeries.series)
         }
     }, [selectedStock, calculateStockTimeSeriesChartDataSet]);
+
+    if (!selectedStock) return <Loading />
 
     return <>
 
