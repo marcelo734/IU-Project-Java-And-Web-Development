@@ -73,7 +73,7 @@ export default function StockDetailPage() {
         </div>
 
         <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-12">
                 <Card>
                     <h2>{selectedStock?.timeSeries?.metaData.frequency} TimeSeries</h2>
 
@@ -82,7 +82,9 @@ export default function StockDetailPage() {
                         data={chartDataSet}/>}
                 </Card>
             </div>
+        </div>
 
+        <div className="row">
             <div className="col-md-6">
                 <Card>
                     <h2>Stock Trade Overview</h2>
@@ -128,9 +130,7 @@ export default function StockDetailPage() {
                     </UnstyledList>
                 </Card>
             </div>
-        </div>
 
-        <div className="row">
             <div className="col-md-6">
                 <Card>
                     <h2>News Feed</h2>

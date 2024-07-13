@@ -1,5 +1,5 @@
 import moment from "moment"
-import {News, Stock, TimeSeriesFrequence} from "../../types/Stock";
+import {BasicFinancialInfo, News, Stock, TimeSeriesData, TimeSeriesFrequence} from "../../types/Stock";
 
 function generateItens<T>(quantity: number, item: T): Array<T> {
     const result: Array<T> = []
@@ -7,6 +7,24 @@ function generateItens<T>(quantity: number, item: T): Array<T> {
         result.push(item)
     }
     return result
+}
+
+function generateMonthlyTimeSeries(quantity: number): TimeSeriesData {
+    const results: TimeSeriesData = {}
+
+    for (let i = 0 ; i < quantity; i++) {
+        const month = moment().subtract(i, "months")
+
+        results[month.format("YYYY-MM-DD")] = {
+            open: Math.random(),
+            high: Math.random(),
+            low: Math.random(),
+            volume: Math.random(),
+            close: Math.random(),
+        }
+    }
+
+    return results;
 }
 
 export const stocksMockData: Stock[] = [
@@ -51,43 +69,7 @@ export const stocksMockData: Stock[] = [
             metaData: {
                 frequency: TimeSeriesFrequence.MONTHLY
             },
-            series: {
-                "2024-05-28": {
-                    open: 165.6900,
-                    high: 175.4600,
-                    low: 162.6200,
-                    close: 169.6600,
-                    volume: 65653753
-                },
-                "2024-04-30": {
-                    open: 190.0000,
-                    high: 193.2800,
-                    low: 165.2605,
-                    close: 166.2000,
-                    volume: 98297181
-                },
-                "2024-03-30": {
-                    open: 165.6900,
-                    high: 175.4600,
-                    low: 162.6200,
-                    close: 169.6600,
-                    volume: 65653753
-                },
-                "2024-02-30": {
-                    open: 190.0000,
-                    high: 193.2800,
-                    low: 165.2605,
-                    close: 166.2000,
-                    volume: 98297181
-                },
-                "2024-01-30": {
-                    open: 165.6900,
-                    high: 175.4600,
-                    low: 162.6200,
-                    close: 169.6600,
-                    volume: 65653753
-                },
-            }
+            series: generateMonthlyTimeSeries(20)
         },
         globalQuote: {
             open: 170.4400,
