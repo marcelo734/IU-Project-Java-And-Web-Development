@@ -45,9 +45,26 @@ export type StockOverview = {
     currency: string;
 }
 
+
+export type NewsFlag = {
+    name: string
+    relevance: number;
+}
+
+export type News = {
+    title: string;
+    url: string;
+    summary: string;
+    timePublished: Moment;
+    source: string;
+    sourceDomain: string;
+    flags: NewsFlag[]
+}
+
 export type Stock = {
     symbol: string;
     overview: StockOverview;
+    newsFeed: News[],
     timeSeries?: TimeSeries;
     globalQuote?: GlobalQuote;
     addedAt?: string;

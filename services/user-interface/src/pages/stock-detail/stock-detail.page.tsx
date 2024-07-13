@@ -129,5 +129,23 @@ export default function StockDetailPage() {
                 </Card>
             </div>
         </div>
+
+        <div className="row">
+            <div className="col-md-6">
+                <Card>
+                    <h2>News Feed</h2>
+
+                    <ul>
+                        {selectedStock.newsFeed.map(news => <li>
+                            <p>
+                                <a target="_blank" href={news.url}>{news.title}</a>
+                            </p>
+                            <p>{news.timePublished.toLocaleString()}</p>
+                        </li>)}
+                    </ul>
+
+                </Card>
+            </div>
+        </div>
     </>
 }
