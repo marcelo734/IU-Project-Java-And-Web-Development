@@ -55,7 +55,19 @@ export default function StockDetailPage() {
     }, [selectedStock, calculateStockTimeSeriesChartDataSet]);
 
     return <>
-        <h1>{selectedStock?.symbol}</h1>
+
+        <div className="row">
+            <div className="col-12">
+                <Card>
+                    <h1>{selectedStock?.overview.name} ({selectedStock?.symbol})</h1>
+
+                    <p>{selectedStock?.overview.sector} - {selectedStock?.overview.industry} - {selectedStock?.overview.country}</p>
+                    <p>Exchange: {selectedStock?.overview.exchange} - Currency: {selectedStock?.overview.currency}</p>
+
+                        <p>{selectedStock?.overview.description}</p>
+                </Card>
+            </div>
+        </div>
 
         <div className="row">
             <div className="col-6">

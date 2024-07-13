@@ -35,8 +35,19 @@ export type GlobalQuote = BasicFinancialInfo & {
     changePercent: string;
 }
 
+export type StockOverview = {
+    name: string;
+    description: string;
+    country: string;
+    sector: string;
+    industry: string;
+    exchange: string;
+    currency: string;
+}
+
 export type Stock = {
     symbol: string;
+    overview: StockOverview;
     timeSeries?: TimeSeries;
     globalQuote?: GlobalQuote;
     addedAt?: string;
