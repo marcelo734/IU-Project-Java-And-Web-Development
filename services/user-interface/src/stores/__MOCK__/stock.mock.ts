@@ -1,5 +1,5 @@
 import moment from "moment"
-import {Stock, TimeSeriesFrequence} from "../Stock";
+import {Stock, TimeSeriesFrequence} from "../../types/Stock";
 
 export const stocksMockData: Stock[] = [
     {

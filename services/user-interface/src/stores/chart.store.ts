@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import {TimeSeriesData} from "./Stock";
+import {TimeSeriesData} from "../types/Stock";
 import {type ChartData, ChartDataset} from "chart.js";
 
 type SELECTED_STOCK_CHART_DATA = "line"
