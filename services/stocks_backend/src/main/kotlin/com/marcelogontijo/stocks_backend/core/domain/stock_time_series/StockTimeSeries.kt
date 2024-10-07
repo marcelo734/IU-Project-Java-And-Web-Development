@@ -10,6 +10,6 @@ data class StockTimeSeriesData(
     val open: Float,
     val high: Float,
     val low: Float,
-    val volume: Float,
+    val volume: Int,
     val close: Float? = null
 )

@@ -2,13 +2,13 @@ package com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto
 
 import com.marcelogontijo.stocks_backend.core.domain.stock_news_feed.NewsFlag
 import com.marcelogontijo.stocks_backend.core.domain.stock_news_feed.StockNewsFeed
-import java.time.Instant
+import java.time.LocalDateTime
 
 data class StockNewsFeedDto(
     val title: String,
     val url: String,
     val summary: String,
-    val timePublished: Instant,
+    val timePublished: LocalDateTime?,
     val source: String,
     val sourceDomain: String,
     val flags: Set<StockNewsFlagDto>,
