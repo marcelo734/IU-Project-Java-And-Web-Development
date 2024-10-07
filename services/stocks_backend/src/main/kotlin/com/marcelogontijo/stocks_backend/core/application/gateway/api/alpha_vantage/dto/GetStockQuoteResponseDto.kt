@@ -1,11 +1,12 @@
 package com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.marcelogontijo.stocks_backend.core.domain.stock_global_quote.StockGlobalQuote
 import java.time.LocalDate
 
 data class GetStockQuoteResponseDto(
     @JsonProperty("Global Quote")
-    val globalQuote: GlobalQuoteDto
+    val globalQuote: GlobalQuoteDto? = null
 )
 
 data class GlobalQuoteDto(
@@ -28,5 +29,17 @@ data class GlobalQuoteDto(
     @JsonProperty("09. change")
     val change: Float,
     @JsonProperty("10. change percent")
-    val changePercent: Float,
+    val changePercent: String,
+)
+
+fun GlobalQuoteDto.toDomain() = StockGlobalQuote(
+    price = this.price,
+    latestTradingDay = this.latestTradingDay,
+    previousClose = this.previousClose,
+    change = this.change,
+    changePercent = this.changePercent,
+    open = this.open,
+    high = this.high,
+    low = this.low,
+    volume = this.volume,
 )

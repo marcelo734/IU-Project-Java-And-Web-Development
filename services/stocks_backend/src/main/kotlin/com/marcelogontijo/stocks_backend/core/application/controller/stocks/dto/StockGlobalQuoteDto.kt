@@ -1,14 +1,14 @@
 package com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto
 
 import com.marcelogontijo.stocks_backend.core.domain.stock_global_quote.StockGlobalQuote
-import java.time.Instant
+import java.time.LocalDate
 
 data class StockGlobalQuoteDto(
     val price: Float,
-    val latestTradingDay: Instant,
+    val latestTradingDay: LocalDate,
     val previousClose: Float,
     val change: Float,
-    val changePercent: Float,
+    val changePercent: String,
     val open: Float,
     val high: Float,
     val low: Float,
@@ -25,6 +25,5 @@ fun StockGlobalQuote.toDto() = StockGlobalQuoteDto(
     open = this.open,
     high = this.high,
     low = this.low,
-    volume = this.volume,
-    close = this.close,
+    volume = this.volume
 )

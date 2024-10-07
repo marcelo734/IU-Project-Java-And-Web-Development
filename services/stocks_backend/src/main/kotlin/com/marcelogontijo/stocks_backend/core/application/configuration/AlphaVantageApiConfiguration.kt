@@ -10,13 +10,18 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory
 
 @Configuration
 class AlphaVantageApiConfiguration(
-    @Value("alpha-vantage-api-key")
-    private val alphaVantageApiKey: String,
+    private val alphaVantageApiKeyInterceptor: AlphaVantageApiKeyInterceptor
 ) {
+    @Value("\${alpha-vantage.base-url}")
+    private lateinit var alphaVantageBaseUrl: String
+
     @Bean
-    fun alphaVantageHttpClient(
-        webClient: WebClient,
-    ): AlphaVantageHttpClient{
+    fun alphaVantageHttpClient(): AlphaVantageHttpClient {
+        val webClient = WebClient.builder()
+            .baseUrl(alphaVantageBaseUrl)
+            .filter(alphaVantageApiKeyInterceptor)
+            .build()
+
         val httpServiceProxyFactory = HttpServiceProxyFactory
             .builderFor(
                 WebClientAdapter.create(webClient)

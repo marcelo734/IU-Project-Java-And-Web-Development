@@ -19,7 +19,7 @@ class AlphaVantageApiKeyInterceptor: ExchangeFilterFunction {
         val reqUri = request.url()
         val newUri = URI(reqUri.getScheme()
             , reqUri.getAuthority(), reqUri.getPath()
-            , reqUri.getQuery() + "&apiKey=${alphaVantageApiKey}"
+            , reqUri.getQuery() + "&apikey=${alphaVantageApiKey}"
             , null)
         val filtered = ClientRequest.from(request)
             .url(newUri)
