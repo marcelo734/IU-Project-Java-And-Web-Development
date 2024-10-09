@@ -14,7 +14,10 @@ import java.time.Instant
 class AlphaVantageGateway(
     private val alphaVantageHttpClient: AlphaVantageHttpClient,
 ): StockPort {
-    override suspend fun getStockBySymbol(symbol: String): Stock? = coroutineScope {
+    override suspend fun getStockBySymbol(
+        symbol: String,
+        frequency: TimeSeriesFrequenceEnum,
+    ): Stock? = coroutineScope {
         val globalQuoteAsync = async {
             alphaVantageHttpClient.getGlobalQuote(symbol).awaitSingle()
         }
@@ -41,7 +44,7 @@ class AlphaVantageGateway(
             overview = companyOverview.toDomain(),
             globalQuote = globalQuote?.toDomain(),
             newsFeed = newsFeed.feed.map { it.toDomain() },
-            timeSeries = timeSeries.toDomain(frequency = TimeSeriesFrequenceEnum.DAILY),
+            timeSeries = timeSeries.toDomain(frequency),
             addedAt = Instant.now(),
         )
     }

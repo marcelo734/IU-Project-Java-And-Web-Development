@@ -12,7 +12,7 @@ data class StockDto(
     val addedAt: Instant? = Instant.now(),
 )
 
-fun Stock.toStockDto() = StockDto(
+fun Stock.toControllerDto() = StockDto(
     symbol = this.symbol,
     overview = this.overview?.toDto(),
     newsFeed = this.newsFeed?.map { it.toDto() },
