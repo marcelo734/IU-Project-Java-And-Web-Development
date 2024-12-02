@@ -1,6 +1,7 @@
 package com.marcelogontijo.stocks_backend.core.application.controller.stocks
 
 import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.StockDto
+import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.UserStocksSearchHistoryDto
 import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.toControllerDto
 import com.marcelogontijo.stocks_backend.core.application.controller.stocks.exceptions.StockNotFoundException
 import com.marcelogontijo.stocks_backend.core.domain.stock_time_series.enum.TimeSeriesFrequenceEnum
@@ -16,6 +17,14 @@ class StocksController(
     @Autowired
     private val stocksUseCase: StocksUseCase,
 ) {
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    suspend fun getStocks(): UserStocksSearchHistoryDto {
+        return UserStocksSearchHistoryDto(
+            stocks = stocksUseCase.getUserStocksSearchHistory().mapNotNull { it?.toControllerDto() }
+        )
+    }
+
     @GetMapping("{symbol}")
     @ResponseStatus(HttpStatus.OK)
     suspend fun getStockBySymbol(
