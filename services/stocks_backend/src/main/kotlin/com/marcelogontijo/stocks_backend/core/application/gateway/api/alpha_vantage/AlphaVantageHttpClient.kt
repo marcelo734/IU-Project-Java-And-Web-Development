@@ -1,9 +1,6 @@
 package com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage
 
-import com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto.GetCompanyOverviewDto
-import com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto.GetNewsSentimentDto
-import com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto.GetStockQuoteResponseDto
-import com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto.TimeSeriesDto
+import com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto.*
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.service.annotation.GetExchange
 import org.springframework.web.service.annotation.HttpExchange
@@ -30,4 +27,9 @@ interface AlphaVantageHttpClient {
     fun getTimeSeriesDaily(
         @PathVariable("symbol") symbol: String,
     ): Mono<TimeSeriesDto>
+
+    @GetExchange("/query?function=SYMBOL_SEARCH&keywords={symbol}")
+    fun searchStockBySymbol(
+        @PathVariable("symbol") symbol: String,
+    ): Mono<GetSearchUtilityResponseDto>
 }

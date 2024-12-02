@@ -13,4 +13,10 @@ class StockSearchR2DBCGateway(
     override suspend fun getHistory(): Flow<UserStockSearchHistory?> {
         return stockSearchRepository.findAll().map { it.toDomain() }
     }
+
+    override suspend fun saveHistory(stock: UserStockSearchHistory): UserStockSearchHistory {
+        return stockSearchRepository
+            .save(stock.toEntity())
+            .toDomain()
+    }
 }

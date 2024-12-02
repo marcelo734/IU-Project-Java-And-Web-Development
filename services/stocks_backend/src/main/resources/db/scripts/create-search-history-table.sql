@@ -6,5 +6,6 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE stocks_search_history (
     id VARCHAR(128) not null primary key default uuid_generate_v4(),
     symbol VARCHAR(5) not null unique,
+    name VARCHAR(100) not null,
     date TIMESTAMP not null default CURRENT_TIMESTAMP
 )

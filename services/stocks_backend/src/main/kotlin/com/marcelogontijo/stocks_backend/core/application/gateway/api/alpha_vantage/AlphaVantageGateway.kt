@@ -3,9 +3,12 @@ package com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_van
 import com.marcelogontijo.stocks_backend.core.application.gateway.api.alpha_vantage.dto.toDomain
 import com.marcelogontijo.stocks_backend.core.domain.stock.Stock
 import com.marcelogontijo.stocks_backend.core.domain.stock.ports.StockPort
+import com.marcelogontijo.stocks_backend.core.domain.stock.search_utility.StockSearchUtility
+import com.marcelogontijo.stocks_backend.core.domain.stock.search_utility.StockSearchUtilityPort
 import com.marcelogontijo.stocks_backend.core.domain.stock_time_series.enum.TimeSeriesFrequenceEnum
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.reactive.awaitFirst
 import kotlinx.coroutines.reactor.awaitSingle
 import org.springframework.stereotype.Service
 import java.time.Instant
@@ -13,7 +16,7 @@ import java.time.Instant
 @Service
 class AlphaVantageGateway(
     private val alphaVantageHttpClient: AlphaVantageHttpClient,
-): StockPort {
+): StockPort, StockSearchUtilityPort {
     override suspend fun getStockBySymbol(
         symbol: String,
         frequency: TimeSeriesFrequenceEnum,
@@ -47,6 +50,13 @@ class AlphaVantageGateway(
             timeSeries = timeSeries.toDomain(frequency),
             addedAt = Instant.now(),
         )
+    }
+
+    override suspend fun searchBySymbol(symbol: String): List<StockSearchUtility> {
+        return alphaVantageHttpClient.searchStockBySymbol(symbol)
+            .awaitFirst()
+            .bestMatches
+            .mapNotNull { it?.toStockSearchUtilityDomain() }
     }
 
 }

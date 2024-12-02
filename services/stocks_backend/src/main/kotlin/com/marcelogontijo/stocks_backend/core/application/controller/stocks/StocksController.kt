@@ -1,8 +1,6 @@
 package com.marcelogontijo.stocks_backend.core.application.controller.stocks
 
-import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.StockDto
-import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.UserStocksSearchHistoryDto
-import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.toControllerDto
+import com.marcelogontijo.stocks_backend.core.application.controller.stocks.dto.*
 import com.marcelogontijo.stocks_backend.core.application.controller.stocks.exceptions.StockNotFoundException
 import com.marcelogontijo.stocks_backend.core.domain.stock_time_series.enum.TimeSeriesFrequenceEnum
 import com.marcelogontijo.stocks_backend.core.usecase.StocksUseCase
