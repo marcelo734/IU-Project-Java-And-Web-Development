@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("v1/stocks")
+@CrossOrigin(origins = ["*"])
 class StocksController(
     @Autowired
     private val stocksUseCase: StocksUseCase,
