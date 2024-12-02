@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+        file: /db/scripts/create-search-history-table.sql
+        relativeToChangeLogFile: false

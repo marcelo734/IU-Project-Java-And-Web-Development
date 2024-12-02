@@ -1,6 +1,6 @@
 services:
   database:
-    image: postgres:12.19-alpine3.20
+    image: postgres:14-alpine
     restart: always
     # set shared memory limit when using docker-compose
     shm_size: 128mb
