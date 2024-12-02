@@ -1,8 +1,11 @@
 import { create } from "zustand"
+import axios from 'axios'
 
 import {Stock} from "../types/Stock";
 
 import {stocksMockData} from "./__MOCK__/stock.mock";
+
+const apiUrl =  process.env.REACT_APP_API_URL;
 
 type State = {
     myStocks: Stock[]
@@ -17,17 +20,13 @@ type Action = {
 export const useStore = create<State & Action>((set) => ({
     myStocks: [],
     selectedStock: null,
-    setSelectedStock(symbol: string) {
-        // TODO: replace with real call to backend
-        setTimeout(() => {
-            const stock = stocksMockData
-                .find(el => el.symbol.toLocaleLowerCase() === symbol.toLocaleLowerCase())!;
+    async setSelectedStock(symbol: string) {
+        const stock = await axios.get(`${apiUrl}/stocks/${symbol}`)
 
-            set((state) => ({
-                ...state,
-                selectedStock: stock
-            }))
-        }, 1500)
+        set((state) => ({
+            ...state,
+            selectedStock: stock.data,
+        }))
 
     },
     fetchStocks() {
