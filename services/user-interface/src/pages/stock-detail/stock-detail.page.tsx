@@ -143,9 +143,9 @@ export default function StockDetailPage() {
 
                     <div style={{maxHeight: '212px', overflowY: 'auto'}}>
                         <ul>
-                            {selectedStock.newsFeed.map(news => <li>
+                            {selectedStock.newsFeed.map((news, idx) => <li key={idx}>
                                 <p>
-                                    <a target="_blank" href={news.url}>{news.title}</a>
+                                    <a target="_blank" href={news.url}  rel="noreferrer">{news.title}</a>
                                 </p>
                                 <p>{moment(news.timePublished).toLocaleString()}</p>
                             </li>)}

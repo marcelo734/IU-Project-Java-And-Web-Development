@@ -50,7 +50,6 @@ export const useStore = create<State & Action>((set) => ({
 
     },
     async fetchStocks() {
-        console.log(useMockData)
         if (useMockData) {
             setTimeout(() => {
                 set((state) => ({ ...state, myStocks: userStocksMockData }))
