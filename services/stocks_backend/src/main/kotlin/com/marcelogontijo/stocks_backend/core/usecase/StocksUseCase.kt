@@ -9,6 +9,8 @@ import com.marcelogontijo.stocks_backend.core.domain.user.UserStockSearchHistory
 import com.marcelogontijo.stocks_backend.core.domain.user.UserStockSearchHistoryPort
 import com.marcelogontijo.stocks_backend.core.domain.user.toUserStockSearchHistoryDomain
 import kotlinx.coroutines.flow.toList
+import java.sql.Timestamp
+import java.time.Instant
 
 class StocksUseCase(
     private val stockPort: StockPort,
@@ -22,7 +24,18 @@ class StocksUseCase(
         return stockPort.getStockBySymbol(
             symbol = symbol,
             frequency = frequency,
-        )
+        )?.also {
+            if (it.symbol != null && it.overview != null) {
+                userStockSearchHistoryPort
+                    .saveHistory(
+                        UserStockSearchHistory(
+                            symbol = it.symbol,
+                            name = it.overview.name,
+                            date = Timestamp.from(Instant.now()).toString(),
+                        )
+                    )
+            }
+        }
     }
 
     suspend fun getUserStocksSearchHistory(): List<UserStockSearchHistory?> {
