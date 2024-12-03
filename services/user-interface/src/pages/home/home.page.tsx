@@ -17,7 +17,7 @@ const SearchStocksInput = styled.div`
 const columns = [
     {
         name: "Symbol",
-        selector: (row: UserStocksSearchHistory) => row.symbol
+        selector: (row: UserStocksSearchHistory) => row.symbol.toUpperCase()
     },
     {
         name: "Name",
@@ -58,7 +58,7 @@ export default function HomePage() {
 
         const symbol = event.currentTarget.value
 
-        onViewStock(symbol)
+        onViewStock(symbol.toUpperCase())
     }
 
     return <>

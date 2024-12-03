@@ -55,7 +55,7 @@ export type News = {
     title: string;
     url: string;
     summary: string;
-    timePublished: Moment;
+    timePublished: string | null;
     source: string;
     sourceDomain: string;
     flags: NewsFlag[]
