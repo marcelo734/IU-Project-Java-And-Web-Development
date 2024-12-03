@@ -68,7 +68,7 @@ export default function StockDetailPage() {
         <div className="row">
             <div className="col-md-12">
                 <Card>
-                    <h1>{selectedStock?.overview.name} ({selectedStock?.symbol})</h1>
+                    <h1>{selectedStock?.overview.name} ({selectedStock?.symbol.toUpperCase()})</h1>
 
                     <p>{selectedStock?.overview.sector} - {selectedStock?.overview.industry} - {selectedStock?.overview.country}</p>
                     <p>Exchange: {selectedStock?.overview.exchange} - Currency: {selectedStock?.overview.currency}</p>
@@ -147,7 +147,7 @@ export default function StockDetailPage() {
                                 <p>
                                     <a target="_blank" href={news.url}  rel="noreferrer">{news.title}</a>
                                 </p>
-                                <p>{moment(news.timePublished).toLocaleString()}</p>
+                                <p>{news.timePublished && moment(news.timePublished).toLocaleString()}</p>
                             </li>)}
                         </ul>
                     </div>
