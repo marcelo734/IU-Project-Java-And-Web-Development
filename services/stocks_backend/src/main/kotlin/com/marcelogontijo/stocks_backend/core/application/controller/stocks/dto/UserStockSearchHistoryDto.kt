@@ -8,10 +8,12 @@ data class UserStocksSearchHistoryDto(
 
 data class StockSearchHistory(
     val symbol: String,
+    val name: String,
     val date: String,
 )
 
 fun UserStockSearchHistory.toControllerDto() = StockSearchHistory(
     symbol = symbol,
+    name = name,
     date = date
 )
