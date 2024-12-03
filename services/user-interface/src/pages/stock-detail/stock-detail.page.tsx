@@ -19,6 +19,7 @@ import {useStore as chartStore} from "../../stores/chart.store";
 import { formatInteger, formatCurrency } from "../../utils/int-formaters.util";
 import {Card} from "../../components/Card";
 import Loading from "../../components/Loading";
+import moment from "moment";
 
 ChartJS.register(
     CategoryScale,
@@ -98,7 +99,7 @@ export default function StockDetailPage() {
                         {selectedStock?.globalQuote && <>
                             <li>
                                 <b>Latest Trading Day</b>: {
-                                selectedStock.globalQuote.latestTradingDay.format("L")
+                                moment(selectedStock.globalQuote.latestTradingDay).format("L")
                             }
                             </li>
 
@@ -146,7 +147,7 @@ export default function StockDetailPage() {
                                 <p>
                                     <a target="_blank" href={news.url}>{news.title}</a>
                                 </p>
-                                <p>{news.timePublished.toLocaleString()}</p>
+                                <p>{moment(news.timePublished).toLocaleString()}</p>
                             </li>)}
                         </ul>
                     </div>
