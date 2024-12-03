@@ -3,3 +3,7 @@ export type UserStocksSearchHistory = {
     name: string,
     date: Date,
 }
+
+export type ApiGetUserStocksSearchHistory = {
+    stocks: UserStocksSearchHistory[]
+}

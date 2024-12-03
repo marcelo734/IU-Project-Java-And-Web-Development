@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 
 import {useStore as useStockStore} from "../../stores/stock.store";
 import {UserStocksSearchHistory} from "../../types/UserStocksSearchHistory";
+import moment from "moment";
 
 const SearchStocksInput = styled.div`
     display: flex;
@@ -24,7 +25,7 @@ const columns = [
     },
     {
         name: "Added At",
-        selector: (row: UserStocksSearchHistory) => row.date.toLocaleDateString()
+        selector: (row: UserStocksSearchHistory) => moment(row.date).toLocaleString()
     }
 ]
 

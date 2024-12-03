@@ -4,7 +4,10 @@ import axios from 'axios'
 import {Stock} from "../types/Stock";
 
 import {stocksMockData, userStocksMockData} from "./__MOCK__/stock.mock";
-import {UserStocksSearchHistory} from "../types/UserStocksSearchHistory";
+import {
+    ApiGetUserStocksSearchHistory,
+    UserStocksSearchHistory
+} from "../types/UserStocksSearchHistory";
 
 const apiUrl =  process.env.REACT_APP_API_URL;
 const useMockData = process.env.REACT_APP_USE_MOCK_DATA === "true";
@@ -56,9 +59,9 @@ export const useStore = create<State & Action>((set) => ({
             return
         }
 
-        const stocks = await axios.get<UserStocksSearchHistory[]>(`${apiUrl}/stocks`)
+        const stocks = await axios.get<ApiGetUserStocksSearchHistory>(`${apiUrl}/stocks`)
 
-        set((state) => ({ ...state, myStocks: stocks.data }))
+        set((state) => ({ ...state, myStocks: stocks.data.stocks }))
     },
     resetSelectedStockState() {
         set(state => ({...state, selectedStock: null}))
