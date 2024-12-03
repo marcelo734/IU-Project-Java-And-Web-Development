@@ -43,7 +43,12 @@ export default function StockDetailPage() {
     const chartDataSet = chartStore((state) => state.selectedStockTimeSeriesChartDataSet)
 
     const setSelectedStock = stockStore((state) => state.setSelectedStock)
+    const resetSelectedStockState = stockStore(state => state.resetSelectedStockState)
     const calculateStockTimeSeriesChartDataSet = chartStore((state) => state.calculateStockTimeSeriesChartDataSet)
+
+    useEffect(() => {
+        return resetSelectedStockState()
+    }, [resetSelectedStockState]);
 
     useEffect(() => {
         setSelectedStock(symbol)
@@ -135,14 +140,16 @@ export default function StockDetailPage() {
                 <Card>
                     <h2>News Feed</h2>
 
-                    <ul>
-                        {selectedStock.newsFeed.map(news => <li>
-                            <p>
-                                <a target="_blank" href={news.url}>{news.title}</a>
-                            </p>
-                            <p>{news.timePublished.toLocaleString()}</p>
-                        </li>)}
-                    </ul>
+                    <div style={{maxHeight: '212px', overflowY: 'auto'}}>
+                        <ul>
+                            {selectedStock.newsFeed.map(news => <li>
+                                <p>
+                                    <a target="_blank" href={news.url}>{news.title}</a>
+                                </p>
+                                <p>{news.timePublished.toLocaleString()}</p>
+                            </li>)}
+                        </ul>
+                    </div>
 
                 </Card>
             </div>
