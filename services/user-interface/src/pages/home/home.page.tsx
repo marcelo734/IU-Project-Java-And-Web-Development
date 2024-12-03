@@ -77,7 +77,6 @@ export default function HomePage() {
             columns={columns}
             data={stocks}
             onRowClicked={row => onViewStock(row.symbol)}
-            customStyles={tableCustomStyle}
-            selectableRows />
+            customStyles={tableCustomStyle} />
     </>
 }
