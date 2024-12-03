@@ -49,7 +49,7 @@ export const stocksMockData: Stock[] = [
             {
                 title: "Log Management Market size is set to grow by USD 2.13 billion from 2023-2027, Growing demand from IT sector boost the market, Technavio - PR Newswire",
                 url: "https://www.prnewswire.com/news-releases/log-management-market-size-is-set-to-grow-by-usd-2-13-billion-from-2023-2027--growing-demand-from-it-sector-boost-the-market-technavio-302195576.html",
-                timePublished: moment("20240712T203000"),
+                timePublished: "20240712T203000",
                 source: "PR Newswire",
                 sourceDomain: "www.prnewswire.com",
                 summary: "Log Management Market size is set to grow by USD 2.13 billion from 2023-2027, Growing demand from IT sector boost the market, Technavio PR ...",
