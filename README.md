@@ -13,6 +13,7 @@ This project objective is to build a responsive web application which display St
 3. [Software Architecture](#software-architecture)
     1. [Backend Architecture](#backends-architecture)
     2. [Frontend Architecture](#frontends-architecture)
+4. [System Architecture and Context C4 Diagram](#system-architecture-and-context-c4-diagram)
 
 ## Technology Used
 
@@ -80,3 +81,48 @@ The frontend was designed following architectures:
     1. `./services/user-interface/src/routes.tsx`
 4. [Client-side Rendering](https://www.patterns.dev/react/client-side-rendering)
     1. implemented by [React framework](https://react.dev/)
+
+## System Architecture and Context C4 Diagram
+
+```mermaid
+C4Context
+    title System Context diagram for Stocks Information System
+
+    Person(customerA, "User", "An investor who wants to check stocks information for different companies world wide")
+
+    Enterprise_Boundary(internalB, "Internal") {
+
+        Enterprise_Boundary(webappB, "Web Application") {
+
+            
+
+            System(WebApp, "Stock Web Application System", "Allows users to query for stocks information using specific stock symbol.")
+        }
+
+        Enterprise_Boundary(b1, "Backend - Spring Boot") {
+
+            SystemDb_Ext(backendSystem, "Kotlin Spring Boot Restful API", "Stores user's historical stock search and request stock information from 3rd party API.")
+        
+
+            SystemDb(pgDB, "PostgreSQL Database", "Relational database stores user stocks search history")
+            SystemDb(redisDB, "Redis Database", "In-memory database, chaches stock details response")
+        }
+    }
+
+
+    System_Boundary(b2, "External") {
+        System(AlphaVantage, "Alpha Vantage - Restful API", "Provides stocks information, the industry company operates in, public news related to the company")
+    }
+
+    Rel(customerA, WebApp, "Uses")
+    Rel(WebApp, backendSystem, "Uses")
+    Rel(backendSystem, pgDB, "Uses")
+    Rel(backendSystem, redisDB, "Uses")
+
+    Rel(backendSystem, AlphaVantage, "Uses")
+
+    UpdateRelStyle(backendSystem, AlphaVantage, $textColor="red", $lineColor="red", $offsetX="-50", $offsetY="20")
+    
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
+
+```
