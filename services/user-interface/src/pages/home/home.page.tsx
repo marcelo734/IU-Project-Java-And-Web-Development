@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import {KeyboardEvent, useEffect} from 'react';
 import styled from "styled-components";
 import DataTable from 'react-data-table-component';
 import {useNavigate} from "react-router-dom";
@@ -44,27 +44,38 @@ export default function HomePage() {
     const stocks: UserStocksSearchHistory[] = useStockStore((state) => state.myStocks)
     const fetchStocks = useStockStore((state) => state.fetchStocks)
 
-    const onViewStock = (stock: UserStocksSearchHistory) => {
-        navigate(`/stock/${stock.symbol}`)
+    const onViewStock = (symbol: String) => {
+        navigate(`/stock/${symbol}`)
     }
 
     useEffect(() => {
         fetchStocks()
     }, [fetchStocks]);
 
+    const onSearchStockKeyDownEventHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.code !== "Enter") return
+
+        const symbol = event.currentTarget.value
+
+        onViewStock(symbol)
+    }
+
     return <>
         <SearchStocksInput>
             <label>Search stocks</label>
-            <input type="text" />
-            <div>
-                <button>Add</button>
-            </div>
+            <input
+                type="text"
+                onKeyDown={e => onSearchStockKeyDownEventHandler(e)}
+            />
+            <small>
+                Type stock symbol and press Enter to search.
+            </small>
         </SearchStocksInput>
 
         <DataTable
             columns={columns}
             data={stocks}
-            onRowClicked={onViewStock}
+            onRowClicked={row => onViewStock(row.symbol)}
             customStyles={tableCustomStyle}
             selectableRows />
     </>
