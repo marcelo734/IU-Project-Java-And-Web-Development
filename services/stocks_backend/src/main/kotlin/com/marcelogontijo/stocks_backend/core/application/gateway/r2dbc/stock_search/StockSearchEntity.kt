@@ -30,5 +30,5 @@ data class StockSearchEntity(
 
 fun UserStockSearchHistory.toEntity() = StockSearchEntity(
     symbol = symbol,
-    name = name,
+    name = name.uppercase(),
 )

@@ -37,6 +37,6 @@ class StocksController(
             symbol = symbol,
             frequency = frequency,
         )?.toControllerDto()
-            ?: throw StockNotFoundException(symbol)
+            ?: throw StockNotFoundException(symbol.uppercase())
     }
 }
