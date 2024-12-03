@@ -1,5 +1,6 @@
 import moment from "moment"
-import {BasicFinancialInfo, News, Stock, TimeSeriesData, TimeSeriesFrequence} from "../../types/Stock";
+import { News, Stock, TimeSeriesData, TimeSeriesFrequence} from "../../types/Stock";
+import {UserStocksSearchHistory} from "../../types/UserStocksSearchHistory";
 
 function generateItens<T>(quantity: number, item: T): Array<T> {
     const result: Array<T> = []
@@ -26,6 +27,19 @@ function generateMonthlyTimeSeries(quantity: number): TimeSeriesData {
 
     return results;
 }
+
+export const userStocksMockData: UserStocksSearchHistory[] = [
+    {
+        "symbol": "IBM",
+        "name": "International Business Machines Corp",
+        "date": new Date("2024-12-02 20:51:03.273567")
+    },
+    {
+        "symbol": "GPN",
+        "name": "Global Payments Inc",
+        "date": new Date("2024-12-02 20:51:23.465699")
+    }
+]
 
 export const stocksMockData: Stock[] = [
     {

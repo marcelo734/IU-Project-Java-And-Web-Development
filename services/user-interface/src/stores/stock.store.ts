@@ -3,19 +3,21 @@ import axios from 'axios'
 
 import {Stock} from "../types/Stock";
 
-import {stocksMockData} from "./__MOCK__/stock.mock";
+import {stocksMockData, userStocksMockData} from "./__MOCK__/stock.mock";
+import {UserStocksSearchHistory} from "../types/UserStocksSearchHistory";
 
 const apiUrl =  process.env.REACT_APP_API_URL;
 const useMockData = Boolean(process.env.REACT_APP_USE_MOCK_DATA);
 
 type State = {
-    myStocks: Stock[]
+    myStocks: UserStocksSearchHistory[]
     selectedStock: Stock | null
 }
 
 type Action = {
     fetchStocks(): void
-    setSelectedStock(symbol: string): void
+    setSelectedStock(symbol: string): void,
+    resetSelectedStockState(): void
 }
 
 export const useStore = create<State & Action>((set) => ({
@@ -44,9 +46,21 @@ export const useStore = create<State & Action>((set) => ({
         }))
 
     },
-    fetchStocks() {
-        setTimeout(() => {
-            set((state) => ({ ...state, myStocks: stocksMockData }))
-        }, 1000)
+    async fetchStocks() {
+        if (useMockData) {
+            setTimeout(() => {
+                set((state) => ({ ...state, myStocks: userStocksMockData }))
+            }, 1000)
+
+            return
+        }
+
+        const stocks = await axios.get<UserStocksSearchHistory[]>(`${apiUrl}/stocks`)
+
+        set((state) => ({ ...state, myStocks: stocks.data }))
+    },
+    resetSelectedStockState() {
+        set(state => ({...state, selectedStock: null}))
+        return;
     }
 }))
