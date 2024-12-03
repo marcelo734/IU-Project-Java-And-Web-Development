@@ -7,7 +7,7 @@ import {stocksMockData, userStocksMockData} from "./__MOCK__/stock.mock";
 import {UserStocksSearchHistory} from "../types/UserStocksSearchHistory";
 
 const apiUrl =  process.env.REACT_APP_API_URL;
-const useMockData = Boolean(process.env.REACT_APP_USE_MOCK_DATA);
+const useMockData = process.env.REACT_APP_USE_MOCK_DATA === "true";
 
 type State = {
     myStocks: UserStocksSearchHistory[]
@@ -47,6 +47,7 @@ export const useStore = create<State & Action>((set) => ({
 
     },
     async fetchStocks() {
+        console.log(useMockData)
         if (useMockData) {
             setTimeout(() => {
                 set((state) => ({ ...state, myStocks: userStocksMockData }))
