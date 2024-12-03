@@ -5,12 +5,15 @@ import com.marcelogontijo.stocks_backend.core.application.controller.stocks.exce
 import com.marcelogontijo.stocks_backend.core.domain.stock_time_series.enum.TimeSeriesFrequenceEnum
 import com.marcelogontijo.stocks_backend.core.usecase.StocksUseCase
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.Cacheable
+import org.springframework.cache.annotation.EnableCaching
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("v1/stocks")
 @CrossOrigin(origins = ["*"])
+@EnableCaching
 class StocksController(
     @Autowired
     private val stocksUseCase: StocksUseCase,
@@ -25,6 +28,7 @@ class StocksController(
 
     @GetMapping("{symbol}")
     @ResponseStatus(HttpStatus.OK)
+    @Cacheable(value = ["stock_detail"], key = "#symbol")
     suspend fun getStockBySymbol(
         @PathVariable("symbol") symbol: String,
         @RequestParam("frequency") frequency: TimeSeriesFrequenceEnum = TimeSeriesFrequenceEnum.DAILY,

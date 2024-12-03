@@ -36,6 +36,10 @@ dependencies {
 	implementation("org.postgresql:r2dbc-postgresql:1.0.7.RELEASE")
 	implementation("org.postgresql:postgresql")
 
+	// redis
+	implementation('org.springframework.boot:spring-boot-starter-data-redis')
+	implementation('io.lettuce:lettuce-core:6.3.2.RELEASE')
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

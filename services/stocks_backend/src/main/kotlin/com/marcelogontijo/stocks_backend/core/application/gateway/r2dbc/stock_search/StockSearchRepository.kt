@@ -4,4 +4,6 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface StockSearchRepository : CoroutineCrudRepository<StockSearchEntity, String>
+interface StockSearchRepository : CoroutineCrudRepository<StockSearchEntity, String> {
+    suspend fun findBySymbol(symbol: String): StockSearchEntity?
+}

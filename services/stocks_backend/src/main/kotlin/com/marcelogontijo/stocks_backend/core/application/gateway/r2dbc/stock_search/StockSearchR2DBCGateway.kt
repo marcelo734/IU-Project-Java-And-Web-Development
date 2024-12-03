@@ -15,7 +15,9 @@ class StockSearchR2DBCGateway(
     }
 
     override suspend fun saveHistory(stock: UserStockSearchHistory): UserStockSearchHistory {
+
         return stockSearchRepository
+            .findBySymbol(stock.symbol)?.toDomain() ?: stockSearchRepository
             .save(stock.toEntity())
             .toDomain()
     }
