@@ -39,11 +39,13 @@ Full list of dependencies available at [package.json => dependencies](./services
 ### Step 1: Spin-up Backend Service
 
 1. You must have installed docker with docker-compose. See [Download Docker Desktop](https://www.docker.com/) for more information
-2. Using a terminal, go to the folder `cd ./docker` and start basic infrastructure by runing `docker-compose up -d`
-3. Request a Alpha Vantage API key at: https://www.alphavantage.co/support/#api-key
-4. Input your api key at `./services/stocks_backend/src/main/resources/application.properties` at `alpha-vantage.api-key=<YOUR_API_KEY>`
-5. Using a terminal, go to the backend folder `cd ./services/stocks_backend` and build and start the application by runing `./gradlew bootRun`
-6. The backend API application should be available at `http://localhost:8080`
+2. Install [OpenJDK 23.0.1](https://jdk.java.net/23/)
+3. Using a terminal, go to the folder `cd ./docker` and start basic infrastructure by runing `docker-compose up -d`
+4. Request a Alpha Vantage API key at: https://www.alphavantage.co/support/#api-key
+5. Input your api key at `./services/stocks_backend/src/main/resources/application.properties` at `alpha-vantage.api-key=<YOUR_API_KEY>`
+6. Using a terminal, go to the backend folder `cd ./services/stocks_backend` and build the application by using the command `./gradlew build`
+7. Start the application by using the command `java -jar ./build/libs/stocks_backend-0.0.1-SNAPSHOT.jar`
+8. The backend API application should be available at `http://localhost:8080`
 
 ### Step 2: Spin-up Frontend Application
 
